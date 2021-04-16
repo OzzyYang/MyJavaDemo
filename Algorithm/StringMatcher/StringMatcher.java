@@ -96,7 +96,6 @@ public class StringMatcher {
                     k = 0;
                 }
             }
-
         }
         return false;
     }
@@ -123,6 +122,7 @@ public class StringMatcher {
                     i++;
                     continue;
                 }
+                //如果匹配未完成，则根据KMP算法项后移动继续匹配
                 i = i - k + nextI(p.substring(0, k - 1));
                 k = 0;
             }
