@@ -19,9 +19,8 @@ public class Sort {
      * @param arr 需要排序的数组
      */
     public static void insertionSort(int[] arr) {
-        int cacheNum = 0;
         for (int i = 1; i < arr.length; i++) {
-            cacheNum = arr[i];
+            int cacheNum = arr[i];
             for (int j = i; j > 0; j--) {
                 if (cacheNum < arr[j - 1]) {
                     arr[j] = arr[j - 1];
@@ -40,14 +39,12 @@ public class Sort {
      */
     public static void bubbleSort(int[] arr) {
         if (arr == null || arr.length <= 1) return;
-        int canum = 0;// 交换数值时的缓存变量
-        // 冒泡排序
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    canum = arr[j];
+                    int cacheNum = arr[j];//交换数值的缓存变量
                     arr[j] = arr[j + 1];
-                    arr[j + 1] = canum;
+                    arr[j + 1] = cacheNum;
                 }
             }
         }
@@ -89,16 +86,19 @@ public class Sort {
      * @param sortOrder ASC表示升序 DES表示降序
      */
     public static void selectionSort(int[] array, String sortOrder) {
+        if (array == null || array.length <= 0) {
+            return;
+        }
+        if (!(sortOrder.equals("ASC") || sortOrder.equals("DES"))) {
+            System.out.println("SortOrder Error!");
+        }
         for (int i = 0; i < array.length - 1; i++) {
             int index = i;
             for (int j = i; j < array.length; j++) {
-                if (sortOrder.equals("ASC")) {
-                    if (array[index] > array[j]) index = j;
-                } else if (sortOrder.equals("DES")) {
-                    if (array[index] < array[j]) index = j;
-                } else {
-                    System.out.println("sortOrder ERROR!");
-                    return;
+                if (sortOrder.equals("ASC") && array[index] > array[j]) {
+                    index = j;
+                } else if (sortOrder.equals("DES") && array[index] < array[j]) {
+                    index = j;
                 }
             }
             if (index != i) {
@@ -116,13 +116,12 @@ public class Sort {
      */
     public static void randomSort(int[] arr) {
         if (arr == null || arr.length <= 1) return;
-        int canum = 0;// 交换数值时的缓存变量
         for (int i = 0; i < arr.length - 1; i++) {
             double rand = Math.random() * (arr.length - 1);
             int j = (int) rand;
-            canum = arr[j];
+            int cacheNum = arr[j];
             arr[j] = arr[j + 1];
-            arr[j + 1] = canum;
+            arr[j + 1] = cacheNum;
         }
     }
 
@@ -148,10 +147,10 @@ public class Sort {
      * @param array 要查找的数组
      * @return 最大值
      */
-    public static int arrayMaximun(int[] array) {
+    public static int arrayMax(int[] array) {
         int max = array[0];
         for (int element : array) {
-            max = element > max ? element : max;
+            max = Math.max(element, max);
         }
         return max;
     }
@@ -162,10 +161,10 @@ public class Sort {
      * @param array 要查找的数组
      * @return 最小值
      */
-    public static int arrayMinimun(int[] array) {
+    public static int arrayMin(int[] array) {
         int min = array[0];
         for (int element : array) {
-            min = element < min ? element : min;
+            min = Math.min(element, min);
         }
         return min;
     }
