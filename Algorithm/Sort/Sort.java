@@ -9,8 +9,7 @@ package Sort;
 public class Sort {
     public static void main(String[] args) {
         int[] a = {25, 24, 12, 76, 98, 101, 90, 28, 56, 56, 4, 20, 465, 120, 845, 1, 6};
-        int[] a =
-                selectionSort(a, "ASC");
+        bubbleSort(a, "DES");
         printArray(a);
     }
 
@@ -57,7 +56,6 @@ public class Sort {
     public static void fastSort(int[] arr) {
         if (arr == null || arr.length <= 1) return;
         int i = 0, j = arr.length - 1;
-        while ()
     }
 
     /**
@@ -67,29 +65,20 @@ public class Sort {
      * @param sortOrder ASC表示升序 DES表示降序
      */
     public static void bubbleSort(int[] array, String sortOrder) {
-        int canum = 0;// 交换数值时的缓存变量
-        // 冒泡排序
-        if (sortOrder == "ASC") {
-            for (int i = 0; i < array.length - 1; i++) {
-                for (int j = 0; j < array.length - 1; j++) {
-                    if (array[j] > array[j + 1]) {
-                        canum = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = canum;
-                    }
+        if (array == null || array.length == 0) {
+            return;
+        }
+        if (!(sortOrder.equals("ASC") || sortOrder.equals("DES"))) {
+            System.out.println("SortOrder ERROR!");
+        }
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - 1; j++) {
+                if ((sortOrder.equals("ASC") && array[j] > array[j + 1]) || (sortOrder.equals("DES") && array[j] < array[j + 1])) {
+                    int cacheNum = array[j];// 交换数值时的缓存变量
+                    array[j] = array[j + 1];
+                    array[j + 1] = cacheNum;
                 }
             }
-        } else if (sortOrder == "DES") {
-            for (int i = 0; i < array.length - 1; i++) {
-                for (int j = 0; j < array.length - 1; j++) {
-                    if (array[j] < array[j + 1]) {
-                        canum = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = canum;
-                    }
-                }
-            }
-
         }
     }
 
