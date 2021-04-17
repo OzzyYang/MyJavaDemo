@@ -1,7 +1,7 @@
 package StringMatcher;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 /**
  * 用于匹配指定字符串s中是否包含某个特定文本模式p

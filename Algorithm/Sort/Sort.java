@@ -9,7 +9,8 @@ package Sort;
 public class Sort {
     public static void main(String[] args) {
         int[] a = {25, 24, 12, 76, 98, 101, 90, 28, 56, 56, 4, 20, 465, 120, 845, 1, 6};
-        selectionSort(a, "ASC");
+        int[] a =
+                selectionSort(a, "ASC");
         printArray(a);
     }
 
@@ -51,6 +52,12 @@ public class Sort {
                 }
             }
         }
+    }
+
+    public static void fastSort(int[] arr) {
+        if (arr == null || arr.length <= 1) return;
+        int i = 0, j = arr.length - 1;
+        while ()
     }
 
     /**
