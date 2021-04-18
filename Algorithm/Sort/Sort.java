@@ -19,6 +19,7 @@ public class Sort {
      * @param arr 需要排序的数组
      */
     public static void insertionSort(int[] arr) {
+        if (isNullOrEmpty(arr)) return;
         for (int i = 1; i < arr.length; i++) {
             int cacheNum = arr[i];
             for (int j = i; j > 0; j--) {
@@ -38,7 +39,7 @@ public class Sort {
      * @param arr 需要排序的数组
      */
     public static void bubbleSort(int[] arr) {
-        if (arr == null || arr.length <= 1) return;
+        if (isNullOrEmpty(arr)) return;
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
@@ -62,9 +63,7 @@ public class Sort {
      * @param sortOrder ASC表示升序 DES表示降序
      */
     public static void bubbleSort(int[] array, String sortOrder) {
-        if (array == null || array.length == 0) {
-            return;
-        }
+        if (isNullOrEmpty(array)) return;
         if (!(sortOrder.equals("ASC") || sortOrder.equals("DES"))) {
             System.out.println("SortOrder ERROR!");
         }
@@ -86,9 +85,7 @@ public class Sort {
      * @param sortOrder ASC表示升序 DES表示降序
      */
     public static void selectionSort(int[] array, String sortOrder) {
-        if (array == null || array.length <= 0) {
-            return;
-        }
+        if (isNullOrEmpty(array)) return;
         if (!(sortOrder.equals("ASC") || sortOrder.equals("DES"))) {
             System.out.println("SortOrder Error!");
         }
@@ -115,7 +112,7 @@ public class Sort {
      * @param arr 需要打乱顺序的数组
      */
     public static void randomSort(int[] arr) {
-        if (arr == null || arr.length <= 1) return;
+        if (isNullOrEmpty(arr)) return;
         for (int i = 0; i < arr.length - 1; i++) {
             double rand = Math.random() * (arr.length - 1);
             int j = (int) rand;
@@ -128,10 +125,13 @@ public class Sort {
     /**
      * 遍历打印数组
      *
-     * @param arr 要输出的数组
+     * @param arr 要遍历的数组
      */
     public static void printArray(int[] arr) {
-        if (arr == null || arr.length == 0) return;
+        if (isNullOrEmpty(arr)) {
+            System.out.println("array's size is 0!");
+            return;
+        }
         int i = 0;
         for (int element : arr) {
             System.out.print("a[" + i + "]=" + element + " ");
@@ -148,6 +148,10 @@ public class Sort {
      * @return 最大值
      */
     public static int arrayMax(int[] array) {
+        if (isNullOrEmpty(array)) {
+            System.out.println("array's size is 0!");
+            return -1;
+        }
         int max = array[0];
         for (int element : array) {
             max = Math.max(element, max);
@@ -162,10 +166,24 @@ public class Sort {
      * @return 最小值
      */
     public static int arrayMin(int[] array) {
+        if (isNullOrEmpty(array)) {
+            System.out.println("array's size is 0!");
+            return -1;
+        }
         int min = array[0];
         for (int element : array) {
             min = Math.min(element, min);
         }
         return min;
+    }
+
+    /**
+     * 对要排序的数组进行边界值的判断
+     *
+     * @param arr 要判断的数组
+     * @return 数组为空或者只有1个以下的元素，则返回true，否则返回false
+     */
+    private static boolean isNullOrEmpty(int[] arr) {
+        return arr == null || arr.length <= 1;
     }
 }
