@@ -1,4 +1,4 @@
-package StringMatcher;
+package stringmatcher;
 
 import java.util.*;
 
