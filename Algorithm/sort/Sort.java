@@ -1,18 +1,17 @@
 package sort;
 
-import recursion.Recursion;
-
-
 /**
- * 对数组arr进行排序
+ * 对整型数组array进行排序
  *
  * @author Ozzy Yang
- * Finished Time:2019-11-30
+ * @since:2019-11-30
  */
 public class Sort {
     public static void main(String[] args) {
-        Recursion.recPrintNum(1326);
-        int[] a = {25, 24, 12, 76, 98, 90, 28, 56, 56, 4};
+
+        int[] a = {25, 24, 12, 76, 98, 90, 28, 56};
+        mergeSort(a);
+        printArray(a, 0, a.length - 1);
         //quickSort(a);
         //printArray(a);
     }
@@ -56,27 +55,72 @@ public class Sort {
         }
     }
 
+    /**
+     * 对数组进行归并排序
+     *
+     * @param array 要排序的数组
+     */
     public static void mergeSort(int[] array) {
         int[] tmpArray = new int[array.length];
-
+        //递归启动
+        mergeSort(array, tmpArray, 0, tmpArray.length - 1);
     }
 
-    private static void mergeSort(int[] array, int[] tmpArray, int leftIndex, int rightIndex) {
-        if (leftIndex < rightIndex) {
-            int centralIndex = (leftIndex + rightIndex) / 2;
-            mergeSort(array, tmpArray, leftIndex, centralIndex);
-            mergeSort(array, tmpArray, centralIndex + 1, rightIndex);
-            mergeArray(array, tmpArray, leftIndex, centralIndex + 1, rightIndex);
+    /**
+     * 把数组递归的分开
+     *
+     * @param array      需要排序的数组
+     * @param tmpArray   缓存数组
+     * @param startIndex 排序起始的坐标
+     * @param endIndex   排序结束的坐标
+     */
+    private static void mergeSort(int[] array, int[] tmpArray, int startIndex, int endIndex) {
+        if (startIndex < endIndex) {//递归结束的界
+            int centralIndex = (startIndex + endIndex) / 2;
+            mergeSort(array, tmpArray, startIndex, centralIndex);
+            mergeSort(array, tmpArray, centralIndex + 1, endIndex);
+            mergeArray(array, tmpArray, startIndex, centralIndex + 1, endIndex);//归并排序数组
         }
     }
 
-    private static void mergeArray(int[] array, int[] tmpArray, int leftIndex, int rightIndex, int rightEnd) {
-        int leftEnd = rightIndex - 1;
-        int tmpIndex = leftIndex;
-        int numElements=rightEnd-leftIndex+1;
-        while (leftIndex<=leftEnd){
-
+    /**
+     * 对数组进行归并排序
+     *
+     * @param array      需要排序的数组
+     * @param tmpArray   缓存数组
+     * @param leftStart  需要归并的左边的部分数组的起始坐标
+     * @param rightStart 需要归并的右边的部分数组的起始坐标
+     * @param rightEnd   需要归并的右边的部分数组的结束坐标
+     */
+    private static void mergeArray(int[] array, int[] tmpArray, int leftStart, int rightStart, int rightEnd) {
+        System.out.printf("现在排序的部分是a[%d]-a[%d],它们是：", leftStart, rightEnd);
+        printArray(array, leftStart, rightEnd);
+        int leftEnd = rightStart - 1;
+        int tmpIndex = leftStart;
+        int leftIndex = leftStart, rightIndex = rightStart;
+        //比较左右部分数组并按照从小到大的顺序放在缓存数组的对应位置中
+        while (leftIndex <= leftEnd && rightIndex <= rightEnd) {
+            if (array[leftIndex] < array[rightIndex]) {
+                tmpArray[tmpIndex++] = array[leftIndex++];
+            } else {
+                tmpArray[tmpIndex++] = array[rightIndex++];
+            }
         }
+        //把没有比较完的剩下的部分放在缓存数组的对应位置中
+        while (leftIndex <= leftEnd) {
+            tmpArray[tmpIndex++] = array[leftIndex++];
+        }
+        while (rightIndex <= rightEnd) {
+            tmpArray[tmpIndex++] = array[rightIndex++];
+        }
+        //将排序的缓存数组的对应位置放回原数组的对应位置
+        int arrIndex = tmpIndex = leftStart;
+        while (arrIndex <= rightEnd) {
+            array[arrIndex++] = tmpArray[tmpIndex++];
+        }
+        System.out.print("排序后的情况为：");
+        printArray(array, leftStart, rightEnd);
+        System.out.print("----------------------------\n");
     }
 
     public static void quickSort(int[] arr) {
@@ -187,21 +231,28 @@ public class Sort {
     }
 
     /**
-     * 遍历打印数组
+     * 遍历输出数组的指定部分元素
      *
-     * @param arr 要遍历的数组
+     * @param arr        要遍历的数组
+     * @param startIndex 开始的下标
+     * @param endIndex   结束的下标
      */
-    public static void printArray(int[] arr) {
+    public static void printArray(int[] arr, int startIndex, int endIndex) {
         if (isNullOrEmpty(arr)) {
             System.out.println("array's size is 0!");
             return;
         }
-        int i = 0;
-        for (int element : arr) {
-            System.out.print("a[" + i + "]=" + element + " ");
-            i++;
+        if (startIndex > endIndex || startIndex > arr.length - 1 || endIndex > arr.length - 1) {
+            System.out.println("index illegal!");
+            return;
         }
-        System.out.println();
+        System.out.print("[");
+        for (int i = startIndex; i <= endIndex; i++) {
+            if (i != endIndex)
+                System.out.print(arr[i] + ", ");
+            else
+                System.out.println(arr[i] + "]");
+        }
     }
 
 
@@ -248,6 +299,6 @@ public class Sort {
      * @return 数组为空或者只有1个以下的元素，则返回true，否则返回false
      */
     private static boolean isNullOrEmpty(int[] arr) {
-        return arr == null || arr.length == 1;
+        return arr == null || arr.length < 1;
     }
 }
