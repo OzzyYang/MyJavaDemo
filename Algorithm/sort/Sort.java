@@ -9,8 +9,10 @@ package sort;
 public class Sort {
     public static void main(String[] args) {
 
-        int[] a = {25, 24, 12, 76, 98, 90, 28, 56};
-        mergeSort(a);
+        int[] a = {1, 120, 6, 25, 41, 3, 24, 12, 76, 21, 18, 98, 90, 9, 8, 28, 56, -6, -1};
+        bubbleSort(a);
+        printArray(a, 0, a.length - 1);
+        randomSort(a);
         printArray(a, 0, a.length - 1);
         //quickSort(a);
         //printArray(a);
@@ -221,13 +223,16 @@ public class Sort {
      */
     public static void randomSort(int[] arr) {
         if (isNullOrEmpty(arr)) return;
-        for (int i = 0; i < arr.length - 1; i++) {
-            double rand = Math.random() * (arr.length - 1);
-            int j = (int) rand;
-            int cacheNum = arr[j];
-            arr[j] = arr[j + 1];
-            arr[j + 1] = cacheNum;
-        }
+        int times = 100;
+        do {
+            for (int i = 0; i < arr.length - 1; i++) {
+                double rand = Math.random() * (arr.length - 1);
+                int j = (int) rand;
+                int cacheNum = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = cacheNum;
+            }
+        } while (times-- != 0);
     }
 
     /**
